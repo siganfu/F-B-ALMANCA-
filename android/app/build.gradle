@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.ephesia.fbdeutsch'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.ephesia.fbdeutsch'
+        minSdk 26          // Android 8.0+
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    buildFeatures { buildConfig true }
+
+    // Web uygulaması tek kaynaktan gelir: ../../web klasörü APK'ya assets olarak eklenir
+    sourceSets {
+        main { assets.srcDirs += ['../../web'] }
+    }
+
+    signingConfigs {
+        release {
+            // GitHub Actions veya yerel derlemede ortam değişkenleri verilirse gerçek anahtarla imzalanır
+            def ks = System.getenv('FBDA_KEYSTORE')
+            if (ks) {
+                storeFile file(ks)
+                storePassword System.getenv('FBDA_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('FBDA_KEY_ALIAS')
+                keyPassword System.getenv('FBDA_KEY_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // Anahtar verilmediyse debug anahtarıyla imzala (kurum içi dağıtım için kurulabilir APK)
+            signingConfig System.getenv('FBDA_KEYSTORE') ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

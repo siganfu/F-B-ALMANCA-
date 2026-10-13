@@ -1,0 +1,21 @@
+{
+  "name": "F&B Deutsch Akademie",
+  "short_name": "FB Deutsch",
+  "description": "Ephesia Resort Hotel F&B personeli için mesleki Almanca. Almanca Öğren, Güvenle Servis Yap!",
+  "lang": "tr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1f3d",
+  "theme_color": "#0f1f3d",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Hızlı Almanca", "url": "./index.html#/servis", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Mini Test", "url": "./index.html#/test", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
