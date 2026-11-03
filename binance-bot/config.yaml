@@ -1,0 +1,74 @@
+# =====================================================================
+#  Binance USDⓈ-M Futures saatlik bot — ayar dosyası
+#  API anahtarları burada DEĞİL, .env dosyasında durur.
+# =====================================================================
+
+# Çalışma modu:
+#   kagit  -> borsaya emir göndermez, sanal pozisyonları SQLite'ta takip eder (anahtar gerekmez)
+#   demo   -> Binance Futures Demo Trading hesabında gerçek emir (sahte para)
+#   gercek -> GERÇEK PARA. Yalnızca gercek_para_onayi: true ise çalışır.
+mod: kagit
+gercek_para_onayi: false
+
+zaman_dilimi: 1h      # yalnızca kapanmış mumlar kullanılır
+mum_sayisi: 1000      # EMA200'ün oturması için bol veri (Binance en fazla 1500)
+
+coinler:
+  - sembol: BTC/USDT:USDT
+    max_kaldirac: 3
+  - sembol: BNB/USDT:USDT
+    max_kaldirac: 2
+  - sembol: XRP/USDT:USDT
+    max_kaldirac: 2
+
+strateji:
+  ema_hizli: 20
+  ema_yavas: 50
+  ema_trend: 200
+  rsi_periyot: 14
+  atr_periyot: 14
+  long_rsi_min: 50
+  long_rsi_max: 70
+  short_rsi_min: 30
+  short_rsi_max: 50
+  long_max_funding: 0.0005     # %0.05  -> LONG için funding bundan KÜÇÜK olmalı
+  short_min_funding: -0.0005   # -%0.05 -> SHORT için funding bundan BÜYÜK olmalı
+  stop_atr_carpani: 2.0
+  kar_al_atr_carpani: 3.0
+
+risk:
+  islem_basi_risk: 0.01        # bakiyenin %1'i
+  min_stop_mesafesi: 0.004     # %0.4
+  max_stop_mesafesi: 0.06      # %6
+  max_acik_pozisyon: 2
+  gunluk_zarar_limiti: 0.05    # %5 (UTC gün başı bakiyesine göre)
+  marjin_modu: isolated
+  durdur_dosyasi: DURDUR       # proje klasöründe bu dosya varsa yeni işlem açılmaz
+
+emir:
+  calisma_fiyati: MARK_PRICE   # stop / kâr al tetik fiyatı
+  stop_deneme_sayisi: 3        # stop konulamazsa kaç kez denensin (sonra pozisyon kapatılır)
+
+kagit:
+  baslangic_bakiyesi: 1000     # USDT, sanal
+  komisyon_orani: 0.0005       # giriş+çıkış için taker komisyonu tahmini
+
+claude:
+  kullanim: onay               # kapali | onay
+  ulasilamazsa: bekle          # bekle (işlem açma) | kurallar (kural kararıyla devam et)
+  zaman_asimi_sn: 240
+  komut: claude                # PATH'teki Claude Code komutu
+  ajan_dosyasi: .claude/agents/piyasa-analisti.md
+  min_guven: 0.0               # ONAYLA dese bile güven bunun altındaysa işlem açılmaz
+  model: ""                    # boş = Claude Code varsayılanı
+
+telegram:
+  aktif: false                 # token ve chat id .env'de
+  islem_acilisi: true
+  hatalar: true
+  gunluk_limit: true
+  ozet: true
+
+kayit:
+  veritabani: veri/gunluk.db
+  log_klasoru: loglar
