@@ -3,6 +3,8 @@
 BTC, BNB ve XRP için **kural tabanlı**, kaldıraçlı, saatte bir kez çalışıp kapanan bir trading botu.
 İsteğe bağlı olarak her sinyale **Claude Code** (abonelikle, ücretsiz) ikinci görüş verir.
 
+📘 **Günlük kullanım, mod geçişleri, acil durumlar ve sorun giderme için: [KULLANIM.md](KULLANIM.md)**
+
 > ⚠️ **Risk uyarısı:** Kaldıraçlı vadeli işlemler sermayenizin tamamını kaybetmenize yol açabilir.
 > Bu bot yatırım tavsiyesi değildir. Önce **kağıt**, sonra en az birkaç hafta **demo** modunda deneyin.
 
